@@ -23,11 +23,7 @@ public class HotelManagment extends Application{
 
     
     public static void main(String[] args) {
-        launch(args);
-        System.out.println("Hello World");
-        
-        
-        
+        launch(args);        
     }
 
     @Override
