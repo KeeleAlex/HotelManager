@@ -9,9 +9,13 @@ import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class HotelManagment extends Application{
@@ -40,16 +44,24 @@ public class HotelManagment extends Application{
         Scene scene;        
         BorderPane Pane = new BorderPane();
         scene = new Scene(Pane);
-        FlowPane disp = new FlowPane();
+        VBox disp = new VBox();
+        HBox Nameline = new HBox();
+        
         
         //Building shit to put on window
-        Button click = new Button("Click me, asshat.");
+        Pane pane = new Pane();
+        Label Nlabel = new Label("Name: ");
+        TextField name = new TextField();
+        name.setPromptText("Input Customer Name");
+        
         
         
         
         //putting it on the window
+        pane.getChildren().addAll(Nlabel);
+        Nameline.getChildren().addAll(pane, name);
         disp.setMinSize(200, 100);
-        disp.getChildren().addAll(click);
+        disp.getChildren().addAll(Nameline);
         
         Pane.setCenter(disp);
         

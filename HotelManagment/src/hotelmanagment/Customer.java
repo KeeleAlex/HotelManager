@@ -16,7 +16,6 @@ public class Customer {
     String Email;
     String Roomnumber;
     String occupants;
-    String Roomtype;
     
     private Customer(){
         this.Name = "//no name\\";
@@ -24,7 +23,6 @@ public class Customer {
         this.Email = "//no name\\";
         this.Roomnumber = "//no name\\";
         this.occupants = "//no name\\";
-        this.Roomtype = "//no name\\";
         
         
     }
@@ -47,10 +45,6 @@ public class Customer {
     
     public void setOccupants(String name){
         this.occupants = name;
-    }
-    
-    public void setRoomtype(String name){
-        this.Roomtype = name;
     }
     
 }
