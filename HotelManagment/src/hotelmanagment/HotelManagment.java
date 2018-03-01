@@ -32,7 +32,7 @@ List<Customer> customers = new ArrayList();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //Charlie sucks knobs
+        //Charlie sucks big knobs
         Stage window = primaryStage;
         Scene scene;
         Pane Pane = new Pane();
