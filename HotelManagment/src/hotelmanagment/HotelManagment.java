@@ -105,12 +105,15 @@ Hotel theSneyd = new Hotel();
         return BPane;
         
     }
-    
+    //creates an Hbox with a textbox to input data and a label to represent what should be written in the box
     private HBox inLine(String in){
         String input = in;
         HBox line = new HBox();
+        //the label at the start of the line
         Label label = new Label(in + ": ");
+        //the texfield to go after the label
         TextField Tfield = new TextField();
+        //setting the prompt text in the text field 
         Tfield.setPromptText("Input " + in);
         Tfield.setId(in);
         line.getChildren().addAll(label, Tfield);
