@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 public class HotelManagment extends Application{
 List<TextField> inputs = new ArrayList();
 List<Customer> customers = new ArrayList();
+Hotel theSneyd = new Hotel();
 
     public static void main(String[] args) {
         launch(args);        
@@ -118,7 +119,8 @@ List<Customer> customers = new ArrayList();
     }
     
     private String get(String what){
-        
+        //iterates through the list of input text boxes, and returns the data in the txt box that matches whats put in get(). e.g:
+        //get("Name") will return what's in the input box defined as "Name" in the inLine() method
         for(TextField data: inputs){
             if(what.equals(data.getId())){
                 //System.out.println(what +" == "+ data.getId());
