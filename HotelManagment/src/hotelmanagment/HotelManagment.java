@@ -25,14 +25,12 @@ public class HotelManagment extends Application{
 List<TextField> inputs = new ArrayList();
 List<Customer> customers = new ArrayList();
 
-    
     public static void main(String[] args) {
         launch(args);        
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //Charlie sucks big knobs
         Stage window = primaryStage;
         Scene scene;
         Pane Pane = new Pane();
@@ -86,18 +84,18 @@ List<Customer> customers = new ArrayList();
             cust.setCounty(get("County"));
             cust.setPostcode(get("Post Code"));
             customers.add(cust);
-            
+            System.out.println(cust.toString());
             
             //troubleshooting loops
             /*for(TextField i: inputs){
             System.out.println(i.getId());
             }
-            */
+            
             
             for(int i = 0; i< customers.size(); i++){
             System.out.println(customers.get(i));
             }
-            
+            */
         });
         
         

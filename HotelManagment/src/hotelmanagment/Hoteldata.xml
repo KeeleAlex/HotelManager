@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2018 Alex
+-->
+
+
+<Hotel>
+    <Room>
+        <roomID>
+            1
+        </roomID>
+        <customerID>
+            -1
+        </customerID>
+        <capacity>
+            6
+        </capacity>
+        <disabled>
+            false
+        </disabled>
+        <price>
+            100.00
+        </price>
+        <checkedin>
+            false
+        </checkedin>
+    </Room>   
+</Hotel>
