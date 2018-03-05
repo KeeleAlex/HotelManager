@@ -16,6 +16,8 @@ import org.w3c.dom.*;
  */
 public class Hotel {
     
+    static Hotel hotel;
+    
     hotelFactory builder = new hotelFactory();
     public Hotel(){
         ObservableList hotel = FXCollections.observableArrayList();
@@ -40,8 +42,16 @@ public class Hotel {
     }
     
     public ObservableList load(){
-        ObservableList HList;
+        ObservableList HList = FXCollections.observableArrayList();
         HList = builder.hotelFactory();
         return HList;
+    }
+    
+    public static Room getRoomByID(int id) {
+        for(Object room : hotel.load()) {
+            Room r = (Room)room;
+            if(r.getRoomid() == id) return r;
+        }
+        return null;
     }
 }

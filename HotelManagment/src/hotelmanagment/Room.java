@@ -53,6 +53,10 @@ public class Room {
         return this.disabled;
     }
     
+    public boolean checkedIn(){
+        return this.checkedin;
+    }
+    
     public void setRoomid(int in){
         this.roomID = in;
     }

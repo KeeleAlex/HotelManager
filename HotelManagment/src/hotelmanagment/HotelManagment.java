@@ -79,14 +79,16 @@ Hotel theSneyd = new Hotel();
             cust.setName(get("Name"));
             cust.setEmail(get("Email"));
             cust.setPhonenumber(get("Phone Number"));
-            cust.setOccupants(get("Group size"));
             cust.setHousenumber(get("House Number"));
             cust.setRoadname(get("Road Name"));
             cust.setTown(get("Town"));
             cust.setCounty(get("County"));
             cust.setPostcode(get("Post Code"));
+            cust.setRoadname(get("Group size"));
             customers.add(cust);
             System.out.println(cust.toString());
+            
+            Booking book = new Booking(cust.getID(), cust.getOccupants());
             
             //troubleshooting loops
             /*for(TextField i: inputs){
@@ -98,7 +100,7 @@ Hotel theSneyd = new Hotel();
             System.out.println(customers.get(i));
             }
             */
-        });
+        });//end of button actions
         
         
         input.getChildren().add(action);
