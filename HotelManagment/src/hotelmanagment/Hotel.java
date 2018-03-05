@@ -15,23 +15,33 @@ import org.w3c.dom.*;
  * @author Alex
  */
 public class Hotel {
-    ObservableList rooms = FXCollections.observableArrayList();
+    
     hotelFactory builder = new hotelFactory();
     public Hotel(){
-        File f = new File("/Users/Alex/Documents/HotelSladproj/HotelManagment/src/hotelmanagment/Hoteldata.xml");
-         
+        ObservableList hotel = FXCollections.observableArrayList();
+        File f = new File("Hoteldata.xml");
+        hotel = load();
         
-        
-        rooms = builder.hotelFactory();
+
         
     }
     //print's all the rooms and their information to the console
-    public String print(){
+    public String print(ObservableList hotel){
         String x = "";
-        for(Object room: this.rooms){
+        for(Object room: hotel){
             Room y = (Room)room;
             x = x + y.toString();
         }
         return x;
+    }
+    
+    public void save(){
+        
+    }
+    
+    public ObservableList load(){
+        ObservableList HList;
+        HList = builder.hotelFactory();
+        return HList;
     }
 }
