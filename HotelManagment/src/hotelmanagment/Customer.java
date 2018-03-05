@@ -121,8 +121,8 @@ public class Customer {
         return this.roomNumber;
     }
     
-    public String getOccupants(){
-        return this.occupants;
+    public int getOccupants(){
+        return Integer.parseInt(this.occupants);
     }
     
     @Override
