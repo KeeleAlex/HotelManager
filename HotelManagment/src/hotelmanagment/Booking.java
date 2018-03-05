@@ -5,6 +5,8 @@
  */
 package hotelmanagment;
 
+import javafx.collections.ObservableList;
+
 /**
  *
  * @author csheen
@@ -13,15 +15,17 @@ public class Booking {
     private int customerID;
     private int roomID;
     private int occupants;
+    Hotel hotel;
     
     public Booking(int custid, int occ) {
         roomID = -1;
         customerID = custid;
         occupants = occ;
-        
-        for(Room room : r) { //iterate through the the rooms
-            if(r.getAvailable() == true && occ == r.getMaxOccupants()) {
-                roomID = r.getID();
+        hotel.load();
+        for(Object room : hotel.load()) {
+            Room r = (Room)room;
+            if(r.checkedIn() == true && occ == r.getCapacity()) {
+                roomID = r.getRoomid();
             }
         }
         
@@ -30,7 +34,7 @@ public class Booking {
         }
         
         if(roomID != -1) {
-            Room.getRoomByID(roomID).setAvailable(false);
+            Hotel.getRoomByID(roomID).checkIn(customerID);
         } else {
             //room still not found after occupants < max occupants check
         }
