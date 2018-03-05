@@ -22,7 +22,7 @@ public class Customer {
     private String roomNumber;
     private String occupants;
     
-    public Customer(){
+    public Customer() {
         this.Name = "//none\\";
         this.houseNumber = "//none\\";
         this.roadName = "//none\\";

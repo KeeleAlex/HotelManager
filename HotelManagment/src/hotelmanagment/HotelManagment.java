@@ -51,7 +51,7 @@ List<Customer> customers = new ArrayList();
         window.show();     
     }
     
-    private BorderPane window1(){
+    private BorderPane window1() {
         //Building Window
         BorderPane BPane = new BorderPane();
         VBox input = new VBox();
