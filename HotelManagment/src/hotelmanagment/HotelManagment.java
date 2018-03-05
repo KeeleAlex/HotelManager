@@ -24,15 +24,14 @@ import javafx.stage.Stage;
 public class HotelManagment extends Application{
 List<TextField> inputs = new ArrayList();
 List<Customer> customers = new ArrayList();
+Hotel theSneyd = new Hotel();
 
-    
     public static void main(String[] args) {
         launch(args);        
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //Charlie sucks big knobs
         Stage window = primaryStage;
         Scene scene;
         Pane Pane = new Pane();
@@ -69,7 +68,8 @@ List<Customer> customers = new ArrayList();
                 inLine("Town"),
                 inLine("County"),
                 inLine("Post Code"),
-                inLine("Group size")
+                inLine("Group size"),
+                inLine("Ben Sucks")
         );
         
         Button action = new Button("Action");
@@ -86,18 +86,18 @@ List<Customer> customers = new ArrayList();
             cust.setCounty(get("County"));
             cust.setPostcode(get("Post Code"));
             customers.add(cust);
-            
+            System.out.println(cust.toString());
             
             //troubleshooting loops
             /*for(TextField i: inputs){
             System.out.println(i.getId());
             }
-            */
+            
             
             for(int i = 0; i< customers.size(); i++){
             System.out.println(customers.get(i));
             }
-            
+            */
         });
         
         
@@ -106,12 +106,15 @@ List<Customer> customers = new ArrayList();
         return BPane;
         
     }
-    
+    //creates an Hbox with a textbox to input data and a label to represent what should be written in the box
     private HBox inLine(String in){
         String input = in;
         HBox line = new HBox();
+        //the label at the start of the line
         Label label = new Label(in + ": ");
+        //the texfield to go after the label
         TextField Tfield = new TextField();
+        //setting the prompt text in the text field 
         Tfield.setPromptText("Input " + in);
         Tfield.setId(in);
         line.getChildren().addAll(label, Tfield);
@@ -120,7 +123,8 @@ List<Customer> customers = new ArrayList();
     }
     
     private String get(String what){
-        
+        //iterates through the list of input text boxes, and returns the data in the txt box that matches whats put in get(). e.g:
+        //get("Name") will return what's in the input box defined as "Name" in the inLine() method
         for(TextField data: inputs){
             if(what.equals(data.getId())){
                 //System.out.println(what +" == "+ data.getId());

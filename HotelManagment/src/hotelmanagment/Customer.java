@@ -128,7 +128,9 @@ public class Customer {
     @Override
     public String toString(){
         String x;
-        x = "=========================\nID: " +  String.valueOf(this.ID) + " \nName: " + this.Name + "\nAddress:\n" + this.houseNumber + "\n" + this.roadName + "\n" + this.town + "\n" + this.county + "\n" + this.postCode + "\n" +"Email: "+ this.email +"\nPhone Number: "+ this.phoneNumber + "\nOccupants: " + this.occupants +"\n =========================";
+        x = "==============================\nID: " +  String.valueOf(this.ID) + " \nName: " + this.Name + "\nAddress:\n" 
+                + this.houseNumber + "\n" + this.roadName + "\n" + this.town + "\n" + this.county + "\n" + this.postCode 
+                + "\n" +"Email: "+ this.email +"\nPhone Number: "+ this.phoneNumber + "\nOccupants: " + this.occupants +"\n";
         return x;
     }
 }
