@@ -83,6 +83,7 @@ public class Room {
         this.checkedin = false;
     }
     
+    @Override
     public String toString(){
         return "==============================\nRoom ID: " + String.valueOf(this.roomID) + "\nCustomer ID: " + String.valueOf(this.customerID)
                 + "\nCapacity: " + this.capacity + "\nDisabled Access: " + this.disabled + "\nPrice: £" + this.price 

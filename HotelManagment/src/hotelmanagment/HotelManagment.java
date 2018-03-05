@@ -68,7 +68,8 @@ Hotel theSneyd = new Hotel();
                 inLine("Town"),
                 inLine("County"),
                 inLine("Post Code"),
-                inLine("Group size")
+                inLine("Group size"),
+                inLine("Ben Sucks")
         );
         
         Button action = new Button("Action");
