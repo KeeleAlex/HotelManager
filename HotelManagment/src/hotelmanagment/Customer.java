@@ -23,16 +23,16 @@ public class Customer {
     private String occupants;
     
     public Customer() {
-        this.Name = "//none\\";
-        this.houseNumber = "//none\\";
-        this.roadName = "//none\\";
-        this.town = "//none\\";
-        this.county = "//none\\";
-        this.postCode = "//none\\";
-        this.phoneNumber = "//none\\";
-        this.email = "//none\\";
-        this.roomNumber = "//none\\";
-        this.occupants = "//none\\";
+        this.Name = "||none||";
+        this.houseNumber = "||none||";
+        this.roadName = "||none||";
+        this.town = "||none||";
+        this.county = "||none||";
+        this.postCode = "||none||";
+        this.phoneNumber = "||none||";
+        this.email = "||none||";
+        this.roomNumber = "||none||";
+        this.occupants = "||none||";
         
         
     }
@@ -122,7 +122,11 @@ public class Customer {
     }
     
     public int getOccupants(){
+        try {
         return Integer.parseInt(this.occupants);
+        } catch(NumberFormatException e) {
+            return -0;
+        }
     }
     
     @Override

@@ -15,14 +15,17 @@ public class Booking {
     private int customerID;
     private int roomID;
     private int occupants;
-    Hotel hotel;
+    Hotel hotel = new Hotel();
     
     public Booking(int custid, int occ) {
         roomID = -1;
         customerID = custid;
         occupants = occ;
-        hotel.load();
-        for(Object room : hotel.load()) {
+        try {
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+        for(Object room : hotel.Hotel()) {
             Room r = (Room)room;
             if(r.checkedIn() == true && occ == r.getCapacity()) {
                 roomID = r.getRoomid();

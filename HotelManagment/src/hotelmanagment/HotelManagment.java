@@ -53,12 +53,17 @@ Hotel theSneyd = new Hotel();
     private BorderPane window1() {
         //Building Window
         BorderPane BPane = new BorderPane();
+        HBox scrn = new HBox();
         VBox input = new VBox();
+        VBox display = new VBox();
+        Label disp = new Label();
         
-        
+        display.getChildren().add(disp);
+        scrn.getChildren().addAll(input, display);
         //putting it on the window
-        BPane.setCenter(input);
+        BPane.setCenter(scrn);
         input.setMinSize(200, 100);
+        display.setMinSize(300, 200);
         input.getChildren().addAll(
                 inLine("Name"), 
                 inLine("Phone Number"),
@@ -83,9 +88,9 @@ Hotel theSneyd = new Hotel();
             cust.setTown(get("Town"));
             cust.setCounty(get("County"));
             cust.setPostcode(get("Post Code"));
-            cust.setRoadname(get("Group size"));
+            cust.setOccupants(get("Group size"));
             customers.add(cust);
-            System.out.println(cust.toString());
+            disp.setText(cust.toString());
             
             Booking book = new Booking(cust.getID(), cust.getOccupants());
             

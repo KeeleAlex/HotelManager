@@ -16,16 +16,13 @@ import org.w3c.dom.*;
  */
 public class Hotel {
     
-    static Hotel hotel;
-    
+    static ObservableList hotel = FXCollections.observableArrayList();  
     hotelFactory builder = new hotelFactory();
-    public Hotel(){
-        ObservableList hotel = FXCollections.observableArrayList();
+    
+    public ObservableList Hotel(){
         File f = new File("Hoteldata.xml");
-        hotel = load();
-        
-
-        
+        hotel = newHotel();
+        return hotel;
     }
     //print's all the rooms and their information to the console
     public String print(ObservableList hotel){
@@ -41,14 +38,14 @@ public class Hotel {
         
     }
     
-    public ObservableList load(){
-        ObservableList HList = FXCollections.observableArrayList();
+    public ObservableList newHotel(){
+        ObservableList HList;
         HList = builder.hotelFactory();
         return HList;
     }
     
     public static Room getRoomByID(int id) {
-        for(Object room : hotel.load()) {
+        for(Object room : hotel) {
             Room r = (Room)room;
             if(r.getRoomid() == id) return r;
         }
