@@ -109,6 +109,11 @@ public class Customer {
         return this.postCode;
     }
     
+    public String getAddress(){
+        return this.houseNumber + "\n" + this.roadName + "\n" + this.town + "\n" + this.county + "\n" + this.postCode 
+                + "\n";
+    }
+    
     public String getPhonenumber(){
         return this.phoneNumber;
     }

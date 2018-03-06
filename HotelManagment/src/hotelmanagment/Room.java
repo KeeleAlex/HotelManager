@@ -45,6 +45,10 @@ public class Room {
         return this.roomID;
     }
     
+    public int getCustomerid(){
+        return this.customerID;
+    }
+    
     public int getCapacity(){
         return this.capacity;
     }
@@ -53,8 +57,12 @@ public class Room {
         return this.disabled;
     }
     
-    public boolean checkedIn(){
+    public boolean getCheckedIn(){
         return this.checkedin;
+    }
+    
+    public double getPrice() {
+        return this.price;
     }
     
     public void setRoomid(int in){

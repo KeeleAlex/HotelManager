@@ -9,12 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -23,8 +28,11 @@ import javafx.stage.Stage;
 
 public class HotelManagment extends Application{
 List<TextField> inputs = new ArrayList();
-List<Customer> customers = new ArrayList();
-Hotel theSneyd = new Hotel();
+static ObservableList<Customer> customers = FXCollections.observableArrayList();
+TableView<Customer> custTable = new TableView();
+static ObservableList<Booking> bookings = FXCollections.observableArrayList();
+Hotel hotel = new Hotel();
+static ObservableList<Room> rooms = FXCollections.observableArrayList();
 
     public static void main(String[] args) {
         launch(args);        
@@ -33,21 +41,42 @@ Hotel theSneyd = new Hotel();
     @Override
     public void start(Stage primaryStage) throws Exception {
         Stage window = primaryStage;
+        window.setMaximized(true);
         Scene scene;
         Pane Pane = new Pane();
-        scene = new Scene(Pane);
+        Pane.setId("Pane");
+        scene = new Scene(Pane);        
+        window.setScene(scene);
+        window.show();
+        
         TabPane tabs = new TabPane();
+        tabs.setPrefSize(window.getWidth(), window.getHeight());
+        System.out.println(Pane.getWidth()+ " / " + Pane.getHeight());
+
         Pane.getChildren().add(tabs);
         Tab p1 = new Tab("New Customer");
+        Tab p2 = new Tab("Customers");
+        Tab p3 = new Tab("Bookings");
+        Tab p4 = new Tab("Hotel Rooms");
         p1.setClosable(false);
+        p2.setClosable(false);
+        p3.setClosable(false);
+        p4.setClosable(false);
 
         p1.setContent(window1());
         
-        tabs.getTabs().add(p1);
+        p2.setContent(customerTable());
+        custTable.setPrefSize(Pane.getWidth(), Pane.getHeight());
         
-        window.setScene(scene);
+        //p3
+        System.out.println(hotel.print(hotel.Rooms));
         
-        window.show();     
+        p4.setContent(hotelTable());
+        
+        tabs.getTabs().addAll(p1, p2, p3, p4);
+        
+        
+        
     }
     
     private BorderPane window1() {
@@ -62,8 +91,8 @@ Hotel theSneyd = new Hotel();
         scrn.getChildren().addAll(input, display);
         //putting it on the window
         BPane.setCenter(scrn);
-        input.setMinSize(200, 100);
-        display.setMinSize(300, 200);
+        /*input.setMinSize(200, 100);
+        display.setMinSize(300, 200);*/
         input.getChildren().addAll(
                 inLine("Name"), 
                 inLine("Phone Number"),
@@ -92,7 +121,7 @@ Hotel theSneyd = new Hotel();
             customers.add(cust);
             disp.setText(cust.toString());
             
-            Booking book = new Booking(cust.getID(), cust.getOccupants());
+            Booking book = new Booking(cust.getID(), cust.getOccupants(), hotel);
             
             //troubleshooting loops
             /*for(TextField i: inputs){
@@ -112,8 +141,9 @@ Hotel theSneyd = new Hotel();
         return BPane;
         
     }
-    //creates an Hbox with a textbox to input data and a label to represent what should be written in the box
+    
     private HBox inLine(String in){
+        //creates an Hbox with a textbox to input data and a label to represent what should be written in the box
         String input = in;
         HBox line = new HBox();
         //the label at the start of the line
@@ -144,4 +174,72 @@ Hotel theSneyd = new Hotel();
         return "Not Found";
     }
     
+    private TableView<Customer> customerTable(){
+        TableView<Customer> custs = new TableView();
+        
+        //columns
+        TableColumn<Customer, Integer> ID = new TableColumn<>("ID");
+        ID.setCellValueFactory(new PropertyValueFactory<>("ID"));
+        
+        TableColumn<Customer, String> name = new TableColumn<>("Name");
+        name.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        
+        TableColumn<Customer, String> address = new TableColumn<>("Address");
+        address.setPrefWidth(150);
+        address.setCellValueFactory(new PropertyValueFactory<>("Address"));
+        
+        TableColumn<Customer, String> number = new TableColumn<>("Phone Number");
+        number.setPrefWidth(150);
+        number.setCellValueFactory(new PropertyValueFactory<>("Phonenumber"));
+        
+        TableColumn<Customer, String> email = new TableColumn<>("Email");
+        email.setPrefWidth(150);
+        email.setCellValueFactory(new PropertyValueFactory<>("Email"));
+        
+        TableColumn<Customer, String> Rn = new TableColumn<>("Room Number");
+        Rn.setPrefWidth(100);
+        Rn.setCellValueFactory(new PropertyValueFactory<>("Roomnumber"));
+        
+        TableColumn<Customer, String> occ = new TableColumn<>("Occupants");
+        occ.setCellValueFactory(new PropertyValueFactory<>("Occupants"));
+        
+        
+        custs.getColumns().addAll(ID, name, address, number, email, Rn, occ);
+        custs.setItems(customers);
+        return custs;
+    }
+    
+    private TableView<Room> hotelTable() {
+        TableView<Room> hotelTable = new TableView();
+        rooms = hotel.Rooms;
+        //Columns
+        TableColumn<Room, Integer> roomid = new TableColumn<>("Room ID");
+        roomid.setPrefWidth(150);
+        roomid.setCellValueFactory(new PropertyValueFactory<>("Roomid"));
+        
+        TableColumn<Room, Integer> custid = new TableColumn<>("Customer ID");
+        custid.setPrefWidth(150);
+        custid.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        
+        TableColumn<Room, Integer> cap = new TableColumn<>("Capacity");
+        cap.setPrefWidth(150);
+        cap.setCellValueFactory(new PropertyValueFactory<>("Capacity"));
+        
+        TableColumn<Room, Boolean> dis = new TableColumn<>("Disabled Access");
+        dis.setPrefWidth(150);
+        dis.setCellValueFactory(new PropertyValueFactory<>("Disabled"));
+        
+        TableColumn<Room, Boolean> checked = new TableColumn<>("Checked in");
+        checked.setPrefWidth(150);
+        checked.setCellValueFactory(new PropertyValueFactory<>("CheckedIn"));
+        
+        TableColumn<Room, Double> price = new TableColumn<>("Price");
+        price.setPrefWidth(150);
+        price.setCellValueFactory(new PropertyValueFactory<>("Price"));
+        
+        hotelTable.getColumns().addAll(roomid, custid, cap, dis, checked, price);
+        
+        hotelTable.setItems(rooms);
+        return hotelTable;
+    }
 }

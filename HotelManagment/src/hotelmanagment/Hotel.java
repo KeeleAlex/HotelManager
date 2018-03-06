@@ -14,15 +14,14 @@ import org.w3c.dom.*;
  *
  * @author Alex
  */
-public class Hotel {
-    
-    static ObservableList hotel = FXCollections.observableArrayList();  
+public class Hotel {   
+    public ObservableList<Room> Rooms = FXCollections.observableArrayList();  
     hotelFactory builder = new hotelFactory();
     
-    public ObservableList Hotel(){
+    public Hotel(){
         File f = new File("Hoteldata.xml");
-        hotel = newHotel();
-        return hotel;
+        Rooms = newHotel();
+        
     }
     //print's all the rooms and their information to the console
     public String print(ObservableList hotel){
@@ -44,8 +43,8 @@ public class Hotel {
         return HList;
     }
     
-    public static Room getRoomByID(int id) {
-        for(Object room : hotel) {
+    public Room getRoomByID(int id) {
+        for(Object room : Rooms) {
             Room r = (Room)room;
             if(r.getRoomid() == id) return r;
         }

@@ -15,9 +15,8 @@ public class Booking {
     private int customerID;
     private int roomID;
     private int occupants;
-    Hotel hotel = new Hotel();
     
-    public Booking(int custid, int occ) {
+    public Booking(int custid, int occ, Hotel hotel) {
         roomID = -1;
         customerID = custid;
         occupants = occ;
@@ -25,9 +24,9 @@ public class Booking {
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
-        for(Object room : hotel.Hotel()) {
+        for(Object room : hotel.Rooms) {
             Room r = (Room)room;
-            if(r.checkedIn() == true && occ == r.getCapacity()) {
+            if(r.getCheckedIn() == true && occ == r.getCapacity()) {
                 roomID = r.getRoomid();
             }
         }
@@ -37,7 +36,7 @@ public class Booking {
         }
         
         if(roomID != -1) {
-            Hotel.getRoomByID(roomID).checkIn(customerID);
+            hotel.getRoomByID(roomID).checkIn(customerID);
         } else {
             //room still not found after occupants < max occupants check
         }
