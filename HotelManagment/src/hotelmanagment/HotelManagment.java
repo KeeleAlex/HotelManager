@@ -68,8 +68,7 @@ static ObservableList<Room> rooms = FXCollections.observableArrayList();
         p2.setContent(customerTable());
         custTable.setPrefSize(Pane.getWidth(), Pane.getHeight());
         
-        //p3
-        System.out.println(hotel.print(hotel.Rooms));
+        p3.setContent(bookingTable());
         
         p4.setContent(hotelTable());
         
@@ -122,6 +121,7 @@ static ObservableList<Room> rooms = FXCollections.observableArrayList();
             disp.setText(cust.toString());
             
             Booking book = new Booking(cust.getID(), cust.getOccupants(), hotel);
+            bookings.add(book);
             
             //troubleshooting loops
             /*for(TextField i: inputs){
@@ -207,6 +207,23 @@ static ObservableList<Room> rooms = FXCollections.observableArrayList();
         custs.getColumns().addAll(ID, name, address, number, email, Rn, occ);
         custs.setItems(customers);
         return custs;
+    }
+    
+    private TableView<Booking> bookingTable()  {
+        TableView<Booking> bookT = new TableView();
+        
+        TableColumn<Booking, Integer> CustID = new TableColumn<>("Customer ID");
+        CustID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        
+        TableColumn<Booking, Integer> RoomID = new TableColumn<>("Room ID");
+        RoomID.setCellValueFactory(new PropertyValueFactory<>("roomid"));
+        
+        TableColumn<Booking, Integer> occ = new TableColumn<>("Number of Occupants");
+        occ.setCellValueFactory(new PropertyValueFactory<>("occupants"));
+        
+        bookT.getColumns().addAll(CustID, RoomID, occ);
+        bookT.setItems(bookings);
+        return bookT;
     }
     
     private TableView<Room> hotelTable() {

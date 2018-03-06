@@ -42,7 +42,7 @@ public class Booking {
         }
     }
     
-    public int getID() {
+    public int getCustomerID() {
         return customerID;
     }
     
