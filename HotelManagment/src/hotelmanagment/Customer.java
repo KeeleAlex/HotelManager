@@ -37,6 +37,19 @@ public class Customer {
         
     }
     
+    public Customer(String in) {
+        this.Name = "Alex";
+        this.houseNumber = "25";
+        this.roadName = "Ironbridge Drive";
+        this.town = "Silverdale";
+        this.county = "Staffordshire";
+        this.postCode = "ST6 5ER";
+        this.phoneNumber = "07722352827";
+        this.email = "alex@keele.com";
+        this.roomNumber = "";
+        this.occupants = "4";
+    }
+    
     public int getID(){
         return this.ID;
     }

@@ -28,11 +28,11 @@ import javafx.stage.Stage;
 
 public class HotelManagment extends Application{
 List<TextField> inputs = new ArrayList();
-static ObservableList<Customer> customers = FXCollections.observableArrayList();
-TableView<Customer> custTable = new TableView();
-static ObservableList<Booking> bookings = FXCollections.observableArrayList();
-Hotel hotel = new Hotel();
-static ObservableList<Room> rooms = FXCollections.observableArrayList();
+public ObservableList<Customer> customers = FXCollections.observableArrayList();
+
+public ObservableList<Booking> bookings = FXCollections.observableArrayList();
+
+public ObservableList<Room> rooms = FXCollections.observableArrayList();
 
     public static void main(String[] args) {
         launch(args);        
@@ -48,11 +48,10 @@ static ObservableList<Room> rooms = FXCollections.observableArrayList();
         scene = new Scene(Pane);        
         window.setScene(scene);
         window.show();
-        
+        rooms = loadHotel();
         TabPane tabs = new TabPane();
         tabs.setPrefSize(window.getWidth(), window.getHeight());
-        System.out.println(Pane.getWidth()+ " / " + Pane.getHeight());
-
+        customers.add(new Customer(""));
         Pane.getChildren().add(tabs);
         Tab p1 = new Tab("New Customer");
         Tab p2 = new Tab("Customers");
@@ -66,7 +65,6 @@ static ObservableList<Room> rooms = FXCollections.observableArrayList();
         p1.setContent(window1());
         
         p2.setContent(customerTable());
-        custTable.setPrefSize(Pane.getWidth(), Pane.getHeight());
         
         p3.setContent(bookingTable());
         
@@ -120,7 +118,13 @@ static ObservableList<Room> rooms = FXCollections.observableArrayList();
             customers.add(cust);
             disp.setText(cust.toString());
             
-            Booking book = new Booking(cust.getID(), cust.getOccupants(), hotel);
+            
+            System.out.println(rooms.get(0).toString());
+            Booking book = new Booking(cust.getID(), cust.getOccupants(), rooms);
+            System.out.println(rooms.get(0).toString());
+            rooms.get(0).setCustomerID(book.getCustomerID());
+            rooms.get(0).setCheckedIn(true);
+            customers.get(0).setRoomnumber(String.valueOf(book.getRoomID()));
             bookings.add(book);
             
             //troubleshooting loops
@@ -213,12 +217,14 @@ static ObservableList<Room> rooms = FXCollections.observableArrayList();
         TableView<Booking> bookT = new TableView();
         
         TableColumn<Booking, Integer> CustID = new TableColumn<>("Customer ID");
+        CustID.setPrefWidth(100);
         CustID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         
         TableColumn<Booking, Integer> RoomID = new TableColumn<>("Room ID");
-        RoomID.setCellValueFactory(new PropertyValueFactory<>("roomid"));
+        RoomID.setCellValueFactory(new PropertyValueFactory<>("RoomID"));
         
         TableColumn<Booking, Integer> occ = new TableColumn<>("Number of Occupants");
+        occ.setPrefWidth(200);
         occ.setCellValueFactory(new PropertyValueFactory<>("occupants"));
         
         bookT.getColumns().addAll(CustID, RoomID, occ);
@@ -227,8 +233,8 @@ static ObservableList<Room> rooms = FXCollections.observableArrayList();
     }
     
     private TableView<Room> hotelTable() {
-        TableView<Room> hotelTable = new TableView();
-        rooms = hotel.Rooms;
+        TableView<Room> hoTable = new TableView();
+        
         //Columns
         TableColumn<Room, Integer> roomid = new TableColumn<>("Room ID");
         roomid.setPrefWidth(150);
@@ -254,9 +260,15 @@ static ObservableList<Room> rooms = FXCollections.observableArrayList();
         price.setPrefWidth(150);
         price.setCellValueFactory(new PropertyValueFactory<>("Price"));
         
-        hotelTable.getColumns().addAll(roomid, custid, cap, dis, checked, price);
+        hoTable.getColumns().addAll(roomid, custid, cap, dis, checked, price);
         
-        hotelTable.setItems(rooms);
-        return hotelTable;
+        hoTable.setItems(rooms);
+        return hoTable;
+    }
+    
+    private ObservableList<Room> loadHotel() {
+        hotelFactory build = new hotelFactory();
+        
+        return build.hotelFactory();
     }
 }

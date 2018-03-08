@@ -10,13 +10,13 @@ package hotelmanagment;
  * @author Alex
  */
 public class Room {
-    int roomID;
-    int customerID;
-    int capacity;
-    boolean disabled;
-    double price;
-    boolean checkedin;
-    String calender;
+    private int roomID;
+    private int customerID;
+    private int capacity;
+    private boolean disabled;
+    private double price;
+    private boolean checkedIn;
+    private String calender;
     
     public Room(){
         
@@ -25,7 +25,7 @@ public class Room {
         this.capacity = -1;
         this.disabled = false;
         this.price = -1;
-        this.checkedin = false;
+        this.checkedIn = false;
         this.calender = null;
         
     }
@@ -36,7 +36,7 @@ public class Room {
         this.capacity = capacity;
         this.disabled = disabled;
         this.price = price;
-        this.checkedin = false;
+        this.checkedIn = false;
         this.calender = null;
     }
     
@@ -58,18 +58,18 @@ public class Room {
     }
     
     public boolean getCheckedIn(){
-        return this.checkedin;
+        return this.checkedIn;
     }
     
     public double getPrice() {
         return this.price;
     }
     
-    public void setRoomid(int in){
+    public void setRoomID(int in){
         this.roomID = in;
     }
     
-    public void setCustomerid(int in){
+    public void setCustomerID(int in){
         this.customerID = in;
     }
     
@@ -81,24 +81,20 @@ public class Room {
         this.disabled = in;
     }
     
+    public void setCheckedIn(boolean in) {
+        this.checkedIn = in;
+    }
+    
     public void setPrice(double in){
         this.price = in;
     }
     
-    public void checkIn(int customerID){
-        this.customerID = customerID;
-        this.checkedin = true;
-    }
     
-    public void checkOut(){
-        this.customerID = -1;
-        this.checkedin = false;
-    }
     
     @Override
     public String toString(){
         return "==============================\nRoom ID: " + String.valueOf(this.roomID) + "\nCustomer ID: " + String.valueOf(this.customerID)
                 + "\nCapacity: " + this.capacity + "\nDisabled Access: " + this.disabled + "\nPrice: £" + this.price 
-                + "\nCurrently Checked: " + this.checkedin + "\n";
+                + "\nCurrently Checked: " + this.checkedIn + "\n";
     }
 }

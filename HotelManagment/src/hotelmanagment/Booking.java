@@ -12,34 +12,49 @@ import javafx.collections.ObservableList;
  * @author csheen
  */
 public class Booking {
+    
     private int customerID;
-    private int roomID;
+    private Room room;
     private int occupants;
     
-    public Booking(int custid, int occ, Hotel hotel) {
-        roomID = -1;
+    public Booking(int custid, int occ, ObservableList<Room> hotel) {
+        room = null;
         customerID = custid;
         occupants = occ;
         try {
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
-        for(Object room : hotel.Rooms) {
-            Room r = (Room)room;
-            if(r.getCheckedIn() == true && occ == r.getCapacity()) {
-                roomID = r.getRoomid();
+        for(Object rom : hotel) {
+            Room r = (Room)rom;
+            if(r.getCheckedIn() == false) {
+                //System.out.println("Checked in: " + r.getCheckedIn());
+                if(r.getCapacity() >= occ) {
+                    //System.out.println("occ: " + occ);
+                    room = r;
+                    r.setCheckedIn(true);
+                    r.setCustomerID(customerID);
+                    break;
+                    //System.out.println("room id: " + roomID);
+                    
+                    
+                }else{
+                    
+                   r.setCheckedIn(false);
+                   r.setCustomerID(-1);
+                    
+                }
             }
         }
         
-        if(roomID == -1) {
-            //no rooms available, do we allow for bookings when occupants < max occupants?
-        }
         
-        if(roomID != -1) {
-            hotel.getRoomByID(roomID).checkIn(customerID);
+        
+        /*if(room != null) {
+        hotel.getRoomByID(room).checkIn(customerID);
         } else {
-            //room still not found after occupants < max occupants check
-        }
+        //room still not found after occupants < max occupants check
+        }*/
+        
     }
     
     public int getCustomerID() {
@@ -47,7 +62,16 @@ public class Booking {
     }
     
     public int getRoomID() {
-        return roomID;
+        try {
+        return room.getRoomid();
+        }catch(NullPointerException e){
+            System.out.println(e.getMessage());
+            return -1;
+        }
+    }
+    
+    public Room getRoom() {
+        return room;
     }
     
     public int getOccupants() {
