@@ -29,10 +29,10 @@ import javafx.stage.Stage;
 public class HotelManagment extends Application{
 List<TextField> inputs = new ArrayList();
 public ObservableList<Customer> customers = FXCollections.observableArrayList();
-
+Label disp = new Label();
 public ObservableList<Booking> bookings = FXCollections.observableArrayList();
-
-public ObservableList<Room> rooms = FXCollections.observableArrayList();
+TableView<Room> hoTable = new TableView();
+public ObservableList<Room> rooms;
 
     public static void main(String[] args) {
         launch(args);        
@@ -51,7 +51,6 @@ public ObservableList<Room> rooms = FXCollections.observableArrayList();
         rooms = loadHotel();
         TabPane tabs = new TabPane();
         tabs.setPrefSize(window.getWidth(), window.getHeight());
-        customers.add(new Customer(""));
         Pane.getChildren().add(tabs);
         Tab p1 = new Tab("New Customer");
         Tab p2 = new Tab("Customers");
@@ -61,7 +60,8 @@ public ObservableList<Room> rooms = FXCollections.observableArrayList();
         p2.setClosable(false);
         p3.setClosable(false);
         p4.setClosable(false);
-
+        
+        
         p1.setContent(window1());
         
         p2.setContent(customerTable());
@@ -82,7 +82,7 @@ public ObservableList<Room> rooms = FXCollections.observableArrayList();
         HBox scrn = new HBox();
         VBox input = new VBox();
         VBox display = new VBox();
-        Label disp = new Label();
+        
         
         display.getChildren().add(disp);
         scrn.getChildren().addAll(input, display);
@@ -104,39 +104,9 @@ public ObservableList<Room> rooms = FXCollections.observableArrayList();
         
         Button action = new Button("Action");
         action.setOnAction(e -> {
-            Customer cust = new Customer();
-            cust.setID(customers.size() + 1);
-            cust.setName(get("Name"));
-            cust.setEmail(get("Email"));
-            cust.setPhonenumber(get("Phone Number"));
-            cust.setHousenumber(get("House Number"));
-            cust.setRoadname(get("Road Name"));
-            cust.setTown(get("Town"));
-            cust.setCounty(get("County"));
-            cust.setPostcode(get("Post Code"));
-            cust.setOccupants(get("Group size"));
-            customers.add(cust);
-            disp.setText(cust.toString());
-            
-            
+            newCustomer();
+            hoTable.refresh();
             System.out.println(rooms.get(0).toString());
-            Booking book = new Booking(cust.getID(), cust.getOccupants(), rooms);
-            System.out.println(rooms.get(0).toString());
-            rooms.get(0).setCustomerID(book.getCustomerID());
-            rooms.get(0).setCheckedIn(true);
-            customers.get(0).setRoomnumber(String.valueOf(book.getRoomID()));
-            bookings.add(book);
-            
-            //troubleshooting loops
-            /*for(TextField i: inputs){
-            System.out.println(i.getId());
-            }
-            
-            
-            for(int i = 0; i< customers.size(); i++){
-            System.out.println(customers.get(i));
-            }
-            */
         });//end of button actions
         
         
@@ -233,7 +203,7 @@ public ObservableList<Room> rooms = FXCollections.observableArrayList();
     }
     
     private TableView<Room> hotelTable() {
-        TableView<Room> hoTable = new TableView();
+        
         
         //Columns
         TableColumn<Room, Integer> roomid = new TableColumn<>("Room ID");
@@ -270,5 +240,39 @@ public ObservableList<Room> rooms = FXCollections.observableArrayList();
         hotelFactory build = new hotelFactory();
         
         return build.hotelFactory();
+    }
+    
+    private void newCustomer() {
+        
+        Customer cust = new Customer();
+            cust.setID(customers.size() + 1);
+            cust.setName(get("Name"));
+            cust.setEmail(get("Email"));
+            cust.setPhonenumber(get("Phone Number"));
+            cust.setHousenumber(get("House Number"));
+            cust.setRoadname(get("Road Name"));
+            cust.setTown(get("Town"));
+            cust.setCounty(get("County"));
+            cust.setPostcode(get("Post Code"));
+            cust.setOccupants(get("Group size"));
+            customers.add(cust);
+            disp.setText(cust.toString());
+            
+            Booking book = new Booking(cust, cust.getOccupants(), rooms);
+            
+            
+            bookings.add(book);
+            
+            //troubleshooting loops
+            /*for(TextField i: inputs){
+            System.out.println(i.getId());
+            }
+            
+            
+            for(int i = 0; i< customers.size(); i++){
+            System.out.println(customers.get(i));
+            }
+            */
+        
     }
 }

@@ -13,13 +13,13 @@ import javafx.collections.ObservableList;
  */
 public class Booking {
     
-    private int customerID;
+    private Customer customer;
     private Room room;
     private int occupants;
     
-    public Booking(int custid, int occ, ObservableList<Room> hotel) {
+    public Booking(Customer cust, int occ, ObservableList<Room> hotel) {
         room = null;
-        customerID = custid;
+        customer = cust;
         occupants = occ;
         try {
         } catch(Exception e) {
@@ -32,8 +32,9 @@ public class Booking {
                 if(r.getCapacity() >= occ) {
                     //System.out.println("occ: " + occ);
                     room = r;
-                    r.setCheckedIn(true);
-                    r.setCustomerID(customerID);
+                    r.CheckIn(customer.getID());
+                    cust.setRoomnumber(r.getRoomid());
+                    
                     break;
                     //System.out.println("room id: " + roomID);
                     
@@ -58,7 +59,7 @@ public class Booking {
     }
     
     public int getCustomerID() {
-        return customerID;
+        return customer.getID();
     }
     
     public int getRoomID() {

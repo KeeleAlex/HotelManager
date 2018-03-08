@@ -19,7 +19,7 @@ public class Customer {
     private String postCode;
     private String phoneNumber;
     private String email;
-    private String roomNumber;
+    private int roomNumber;
     private String occupants;
     
     public Customer() {
@@ -31,7 +31,7 @@ public class Customer {
         this.postCode = "||none||";
         this.phoneNumber = "||none||";
         this.email = "||none||";
-        this.roomNumber = "||none||";
+        this.roomNumber = -1;
         this.occupants = "||none||";
         
         
@@ -46,7 +46,7 @@ public class Customer {
         this.postCode = "ST6 5ER";
         this.phoneNumber = "07722352827";
         this.email = "alex@keele.com";
-        this.roomNumber = "";
+        this.roomNumber = -1;
         this.occupants = "4";
     }
     
@@ -90,7 +90,7 @@ public class Customer {
         this.email = name;
     }
     
-    public void setRoomnumber(String name){
+    public void setRoomnumber(int name){
         this.roomNumber = name;
     }
     
@@ -135,7 +135,7 @@ public class Customer {
         return this.email;
     }
     
-    public String getRoomnumber(){
+    public int getRoomnumber(){
         return this.roomNumber;
     }
     

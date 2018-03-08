@@ -13,7 +13,7 @@ public class Room {
     private int roomID;
     private int customerID;
     private int capacity;
-    private boolean disabled;
+    private Type type;
     private double price;
     private boolean checkedIn;
     private String calender;
@@ -23,7 +23,7 @@ public class Room {
         this.roomID = -1;
         this.customerID = -1;
         this.capacity = -1;
-        this.disabled = false;
+        this.type = new Type();
         this.price = -1;
         this.checkedIn = false;
         this.calender = null;
@@ -34,7 +34,7 @@ public class Room {
         this.roomID = id;
         this.customerID = -1;
         this.capacity = capacity;
-        this.disabled = disabled;
+        this.type = new Type();
         this.price = price;
         this.checkedIn = false;
         this.calender = null;
@@ -53,8 +53,8 @@ public class Room {
         return this.capacity;
     }
     
-    public boolean getDisabled(){
-        return this.disabled;
+    public Type getType(){
+        return this.type;
     }
     
     public boolean getCheckedIn(){
@@ -77,8 +77,8 @@ public class Room {
         this.capacity = in;
     }
     
-    public void setDisabled(boolean in){
-        this.disabled = in;
+    public void setType(String in){
+        this.type = new Type();
     }
     
     public void setCheckedIn(boolean in) {
@@ -89,12 +89,17 @@ public class Room {
         this.price = in;
     }
     
+    public void CheckIn(int cust) {
+        this.customerID = cust;
+        this.checkedIn = true;
+    }
+    
     
     
     @Override
     public String toString(){
         return "==============================\nRoom ID: " + String.valueOf(this.roomID) + "\nCustomer ID: " + String.valueOf(this.customerID)
-                + "\nCapacity: " + this.capacity + "\nDisabled Access: " + this.disabled + "\nPrice: £" + this.price 
-                + "\nCurrently Checked: " + this.checkedIn + "\n";
+                + "\nCapacity: " + this.capacity + "\nDisabled Access: " + this.type + "\nPrice: £" + this.price 
+                + "\nCheckedIn: " + this.checkedIn + "\n";
     }
 }
