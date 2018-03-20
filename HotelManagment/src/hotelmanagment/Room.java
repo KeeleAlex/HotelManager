@@ -99,7 +99,7 @@ public class Room {
     @Override
     public String toString(){
         return "==============================\nRoom ID: " + String.valueOf(this.roomID) + "\nCustomer ID: " + String.valueOf(this.customerID)
-                + "\nCapacity: " + this.capacity + "\nDisabled Access: " + this.type + "\nPrice: £" + this.price 
+                + "\nCapacity: " + this.capacity + "\nType of room: " + this.type + "\nPrice: £" + this.price 
                 + "\nCheckedIn: " + this.checkedIn + "\n";
     }
 }

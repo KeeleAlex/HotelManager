@@ -212,7 +212,7 @@ public ObservableList<Room> rooms;
         
         TableColumn<Room, Integer> custid = new TableColumn<>("Customer ID");
         custid.setPrefWidth(150);
-        custid.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        custid.setCellValueFactory(new PropertyValueFactory<>("Customerid"));
         
         TableColumn<Room, Integer> cap = new TableColumn<>("Capacity");
         cap.setPrefWidth(150);
