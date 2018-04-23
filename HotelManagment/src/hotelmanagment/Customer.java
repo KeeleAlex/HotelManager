@@ -20,7 +20,8 @@ public class Customer {
     private String phoneNumber;
     private String email;
     private int roomNumber;
-    private String occupants;
+    private int occupants;
+    private String roomType;
     
     public Customer() {
         this.Name = "||none||";
@@ -32,7 +33,7 @@ public class Customer {
         this.phoneNumber = "||none||";
         this.email = "||none||";
         this.roomNumber = -1;
-        this.occupants = "||none||";
+        this.occupants = -1;
         
         
     }
@@ -47,7 +48,7 @@ public class Customer {
         this.phoneNumber = "07722352827";
         this.email = "alex@keele.com";
         this.roomNumber = -1;
-        this.occupants = "4";
+        this.occupants = 4;
     }
     
     public int getID(){
@@ -94,8 +95,11 @@ public class Customer {
         this.roomNumber = name;
     }
     
-    public void setOccupants(String name){
-        this.occupants = name;
+    public void setType(String type){
+        this.roomType = type;
+        System.out.println(type + " " + this.getTypeCapacity());
+        this.occupants = this.getTypeCapacity();
+        
     }
     
     public String getName(){
@@ -140,11 +144,7 @@ public class Customer {
     }
     
     public int getOccupants(){
-        try {
-        return Integer.parseInt(this.occupants);
-        } catch(NumberFormatException e) {
-            return -0;
-        }
+        return this.occupants;
     }
     
     @Override
@@ -154,5 +154,27 @@ public class Customer {
                 + this.houseNumber + "\n" + this.roadName + "\n" + this.town + "\n" + this.county + "\n" + this.postCode 
                 + "\n" +"Email: "+ this.email +"\nPhone Number: "+ this.phoneNumber + "\nOccupants: " + this.occupants +"\n";
         return x;
+    }
+    
+    public int getTypeCapacity(){
+        switch (this.roomType) {
+            
+            case "Single":
+                return 1;
+            case "Twin":
+                return 2;
+            case "King Bed":
+                return 2;
+            case "Three person":
+                return 3;
+            case "Four person":
+                return 4;
+            case "Five person":
+                return 5;
+            case "Six person":
+                return 6;
+            
+        }
+        return 20;
     }
 }

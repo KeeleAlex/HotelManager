@@ -2,6 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/Users/Alex/Documents/HotelSladproj/HotelManagment/src/hotelmanagment/Type.java</file>
+            <file>file:/Users/Alex/Documents/HotelSladproj/HotelManagment/src/hotelmanagment/Room.java</file>
+            <file>file:/Users/Alex/Documents/HotelSladproj/HotelManagment/src/hotelmanagment/Booking.java</file>
+            <file>file:/Users/Alex/Documents/HotelSladproj/HotelManagment/src/hotelmanagment/Customer.java</file>
+            <file>file:/Users/Alex/Documents/HotelSladproj/HotelManagment/src/hotelmanagment/HotelManagment.java</file>
+            <file>file:/Users/Alex/Documents/HotelSladproj/HotelManagment/src/hotelmanagment/hotelFactory.java</file>
+        </group>
     </open-files>
 </project-private>

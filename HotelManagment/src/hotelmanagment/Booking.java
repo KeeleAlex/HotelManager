@@ -25,8 +25,8 @@ public class Booking {
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
-        for(Object rom : hotel) {
-            Room r = (Room)rom;
+        for(int i = 29; i > 0; i--) {
+            Room r = hotel.get(i);
             if(r.getCheckedIn() == false) {
                 //System.out.println("Checked in: " + r.getCheckedIn());
                 if(r.getCapacity() >= occ) {

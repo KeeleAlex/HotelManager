@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -27,12 +28,16 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class HotelManagment extends Application{
-List<TextField> inputs = new ArrayList();
+List<Object> inputfield = new ArrayList();
 public ObservableList<Customer> customers = FXCollections.observableArrayList();
 Label disp = new Label();
 public ObservableList<Booking> bookings = FXCollections.observableArrayList();
+TableView<Customer> custs = new TableView();
+TableView<Booking> bookT = new TableView();
 TableView<Room> hoTable = new TableView();
 public ObservableList<Room> rooms;
+List<String> roomtypes = new ArrayList();
+
 
     public static void main(String[] args) {
         launch(args);        
@@ -61,6 +66,15 @@ public ObservableList<Room> rooms;
         p3.setClosable(false);
         p4.setClosable(false);
         
+        //creating the room types
+        roomtypes.add("Single");
+        roomtypes.add("Twin");
+        roomtypes.add("King Bed");
+        roomtypes.add("Three person");
+        roomtypes.add("Four person");
+        roomtypes.add("Five person");
+        roomtypes.add("Six person");
+        
         
         p1.setContent(window1());
         
@@ -68,10 +82,11 @@ public ObservableList<Room> rooms;
         
         p3.setContent(bookingTable());
         
-        p4.setContent(hotelTable());
+        p4.setContent(hotelTable(window));
         
         tabs.getTabs().addAll(p1, p2, p3, p4);
         
+
         
         
     }
@@ -81,7 +96,8 @@ public ObservableList<Room> rooms;
         BorderPane BPane = new BorderPane();
         HBox scrn = new HBox();
         VBox input = new VBox();
-        VBox display = new VBox();
+        VBox display = new VBox();        
+        
         
         
         display.getChildren().add(disp);
@@ -99,14 +115,13 @@ public ObservableList<Room> rooms;
                 inLine("Town"),
                 inLine("County"),
                 inLine("Post Code"),
-                inLine("Group size")
+                inBox("Room Type", roomtypes)
         );
         
         Button action = new Button("Action");
         action.setOnAction(e -> {
             newCustomer();
             hoTable.refresh();
-            System.out.println(rooms.get(0).toString());
         });//end of button actions
         
         
@@ -128,28 +143,59 @@ public ObservableList<Room> rooms;
         Tfield.setPromptText("Input " + in);
         Tfield.setId(in);
         line.getChildren().addAll(label, Tfield);
-        inputs.add(Tfield);
+        inputfield.add(Tfield);
+        return line;
+    }
+    
+    private HBox inBox(String in, List<String> options){
+       ComboBox CB = new ComboBox();
+       for(String x : options){ 
+       CB.getItems().add(x);
+       }
+        //creates an Hbox with a textbox to input data and a label to represent what should be written in the box
+        String input = in;
+        HBox line = new HBox();
+        //the label at the start of the line
+        Label label = new Label(in + ": ");
+        //the texfield to go after the label
+        //setting the prompt text in the text field 
+        CB.setPromptText("Input " + in);
+        CB.setId(in);
+        line.getChildren().addAll(label, CB);
+        inputfield.add(CB);
         return line;
     }
     
     private String get(String what){
         //iterates through the list of input text boxes, and returns the data in the txt box that matches whats put in get(). e.g:
         //get("Name") will return what's in the input box defined as "Name" in the inLine() method
-        for(TextField data: inputs){
-            if(what.equals(data.getId())){
-                //System.out.println(what +" == "+ data.getId());
-                return data.getText();
+        
+        for(Object data: inputfield){
+            TextField x;
+            ComboBox y;
+            //casting the input object to a textfield
+            try{
+                x = (TextField)data;
+                
+                if(what.equals(x.getId())){
+                System.out.println(x.getText());
+                return x.getText();
                 
             }
-            /*else{
-            System.out.println(what +" != "+ data.getId());
-            }*/
+            //casting it to a comboBox if it's not a textfield 
+            }catch(ClassCastException e){
+                y = (ComboBox<String>)data;               
+                if(what.equals(y.getId())){
+                 System.out.println(y.getValue());
+                return (String)y.getValue();
+                
+            }
+            }
         }
         return "Not Found";
     }
     
-    private TableView<Customer> customerTable(){
-        TableView<Customer> custs = new TableView();
+    private TableView<Customer> customerTable(){  
         
         //columns
         TableColumn<Customer, Integer> ID = new TableColumn<>("ID");
@@ -180,11 +226,14 @@ public ObservableList<Room> rooms;
         
         custs.getColumns().addAll(ID, name, address, number, email, Rn, occ);
         custs.setItems(customers);
+        custs.setOnMouseClicked(e -> {
+        Checkout(custs, bookT, hoTable);
+        
+        });
         return custs;
     }
     
     private TableView<Booking> bookingTable()  {
-        TableView<Booking> bookT = new TableView();
         
         TableColumn<Booking, Integer> CustID = new TableColumn<>("Customer ID");
         CustID.setPrefWidth(100);
@@ -202,7 +251,7 @@ public ObservableList<Room> rooms;
         return bookT;
     }
     
-    private TableView<Room> hotelTable() {
+    private TableView<Room> hotelTable(Stage window) {
         
         
         //Columns
@@ -214,13 +263,9 @@ public ObservableList<Room> rooms;
         custid.setPrefWidth(150);
         custid.setCellValueFactory(new PropertyValueFactory<>("Customerid"));
         
-        TableColumn<Room, Integer> cap = new TableColumn<>("Capacity");
-        cap.setPrefWidth(150);
-        cap.setCellValueFactory(new PropertyValueFactory<>("Capacity"));
-        
-        TableColumn<Room, Boolean> dis = new TableColumn<>("Disabled Access");
-        dis.setPrefWidth(150);
-        dis.setCellValueFactory(new PropertyValueFactory<>("Disabled"));
+        TableColumn<Room, Integer> type = new TableColumn<>("Type");
+        type.setPrefWidth(150);
+        type.setCellValueFactory(new PropertyValueFactory<>("Type"));
         
         TableColumn<Room, Boolean> checked = new TableColumn<>("Checked in");
         checked.setPrefWidth(150);
@@ -230,9 +275,11 @@ public ObservableList<Room> rooms;
         price.setPrefWidth(150);
         price.setCellValueFactory(new PropertyValueFactory<>("Price"));
         
-        hoTable.getColumns().addAll(roomid, custid, cap, dis, checked, price);
+        hoTable.getColumns().addAll(roomid, custid, type, checked, price);
         
         hoTable.setItems(rooms);
+        
+        hoTable.setMaxSize(window.getWidth(), window.getHeight()-60);
         return hoTable;
     }
     
@@ -254,7 +301,7 @@ public ObservableList<Room> rooms;
             cust.setTown(get("Town"));
             cust.setCounty(get("County"));
             cust.setPostcode(get("Post Code"));
-            cust.setOccupants(get("Group size"));
+            cust.setType(get("Room Type"));
             customers.add(cust);
             disp.setText(cust.toString());
             
@@ -273,6 +320,12 @@ public ObservableList<Room> rooms;
             System.out.println(customers.get(i));
             }
             */
+        
+    }
+    
+    private void Checkout(TableView custs, TableView book, TableView rooms){
+        Customer larry = (Customer) custs.getSelectionModel().getSelectedItem();
+        larry.getRoomnumber();
         
     }
 }

@@ -13,7 +13,7 @@ public class Room {
     private int roomID;
     private int customerID;
     private int capacity;
-    private Type type;
+    private String type;
     private double price;
     private boolean checkedIn;
     private String calender;
@@ -23,18 +23,18 @@ public class Room {
         this.roomID = -1;
         this.customerID = -1;
         this.capacity = -1;
-        this.type = new Type();
+        this.type = null;
         this.price = -1;
         this.checkedIn = false;
         this.calender = null;
         
     }
     
-    public Room(int id, int capacity, boolean disabled, double price){
+    public Room(int id, String type, boolean disabled, double price){
         this.roomID = id;
         this.customerID = -1;
-        this.capacity = capacity;
-        this.type = new Type();
+        this.type = type;
+        this.capacity = this.getCapacity();
         this.price = price;
         this.checkedIn = false;
         this.calender = null;
@@ -50,11 +50,25 @@ public class Room {
     }
     
     public int getCapacity(){
-        return this.capacity;
-    }
-    
-    public Type getType(){
-        return this.type;
+        switch (this.type) {
+            
+            case "Single":
+                return 1;
+            case "Twin":
+                return 2;
+            case "King Bed":
+                return 2;
+            case "Three person":
+                return 3;
+            case "Four person":
+                return 4;
+            case "Five person":
+                return 5;
+            case "Six person":
+                return 6;
+            
+        }
+        return 20;
     }
     
     public boolean getCheckedIn(){
@@ -63,6 +77,10 @@ public class Room {
     
     public double getPrice() {
         return this.price;
+    }
+    
+    public String getType(){
+        return this.type;
     }
     
     public void setRoomID(int in){
@@ -78,7 +96,7 @@ public class Room {
     }
     
     public void setType(String in){
-        this.type = new Type();
+        this.type = in;
     }
     
     public void setCheckedIn(boolean in) {
