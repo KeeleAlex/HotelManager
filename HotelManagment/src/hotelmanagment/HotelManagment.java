@@ -305,7 +305,7 @@ List<String> roomtypes = new ArrayList();
             customers.add(cust);
             disp.setText(cust.toString());
             
-            Booking book = new Booking(cust, cust.getOccupants(), rooms);
+            Booking book = new Booking(cust, cust.getType(), rooms);
             
             
             bookings.add(book);

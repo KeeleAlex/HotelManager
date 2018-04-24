@@ -15,26 +15,28 @@ public class Booking {
     
     private Customer customer;
     private Room room;
+    private String roomType;
     private int occupants;
     
-    public Booking(Customer cust, int occ, ObservableList<Room> hotel) {
+    public Booking(Customer cust, String type, ObservableList<Room> hotel) {
         room = null;
         customer = cust;
-        occupants = occ;
+        roomType = type;
         try {
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
-        for(int i = 29; i > 0; i--) {
+        for(int i = 0; i < hotel.size(); i++) {
             Room r = hotel.get(i);
+            //checking whether a room is already booked 
             if(r.getCheckedIn() == false) {
                 //System.out.println("Checked in: " + r.getCheckedIn());
-                if(r.getCapacity() >= occ) {
+                if(roomType.equals(r.getType())) {
                     //System.out.println("occ: " + occ);
                     room = r;
                     r.CheckIn(customer.getID());
                     cust.setRoomnumber(r.getRoomid());
-                    
+                    occupants = cust.getOccupants();
                     break;
                     //System.out.println("room id: " + roomID);
                     
@@ -76,6 +78,6 @@ public class Booking {
     }
     
     public int getOccupants() {
-        return occupants;
+        return this.occupants;
     }
 }

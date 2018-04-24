@@ -34,7 +34,7 @@ public class Customer {
         this.email = "||none||";
         this.roomNumber = -1;
         this.occupants = -1;
-        
+        this.roomType = "";
         
     }
     
@@ -145,6 +145,10 @@ public class Customer {
     
     public int getOccupants(){
         return this.occupants;
+    }
+    
+    public String getType(){
+        return this.roomType;
     }
     
     @Override
