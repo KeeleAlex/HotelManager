@@ -11,6 +11,7 @@ import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -30,12 +31,12 @@ import javafx.stage.Stage;
 public class HotelManagment extends Application{
 List<Object> inputfield = new ArrayList();
 public ObservableList<Customer> customers = FXCollections.observableArrayList();
-Label disp = new Label();
+public ObservableList<Room> rooms;
 public ObservableList<Booking> bookings = FXCollections.observableArrayList();
 TableView<Customer> custs = new TableView();
 TableView<Booking> bookT = new TableView();
 TableView<Room> hoTable = new TableView();
-public ObservableList<Room> rooms;
+Label disp = new Label();
 List<String> roomtypes = new ArrayList();
 
 
@@ -65,6 +66,7 @@ List<String> roomtypes = new ArrayList();
         p2.setClosable(false);
         p3.setClosable(false);
         p4.setClosable(false);
+        
         
         //creating the room types
         roomtypes.add("Single");
@@ -98,7 +100,7 @@ List<String> roomtypes = new ArrayList();
         VBox input = new VBox();
         VBox display = new VBox();        
         
-        
+        BPane.setPadding(new Insets(5, 5, 5, 5));
         
         display.getChildren().add(disp);
         scrn.getChildren().addAll(input, display);
@@ -118,7 +120,8 @@ List<String> roomtypes = new ArrayList();
                 inBox("Room Type", roomtypes)
         );
         
-        Button action = new Button("Action");
+        Button action = new Button("Submit");
+        action.setPadding(new Insets(5 , 50, 5, 50));
         action.setOnAction(e -> {
             newCustomer();
             hoTable.refresh();
@@ -135,13 +138,16 @@ List<String> roomtypes = new ArrayList();
         //creates an Hbox with a textbox to input data and a label to represent what should be written in the box
         String input = in;
         HBox line = new HBox();
+        line.setPadding(new Insets(5, 5, 5, 5));
         //the label at the start of the line
         Label label = new Label(in + ": ");
+        label.setMinWidth(100);
         //the texfield to go after the label
         TextField Tfield = new TextField();
         //setting the prompt text in the text field 
         Tfield.setPromptText("Input " + in);
         Tfield.setId(in);
+        Tfield.setMinWidth(200);
         line.getChildren().addAll(label, Tfield);
         inputfield.add(Tfield);
         return line;
@@ -149,18 +155,28 @@ List<String> roomtypes = new ArrayList();
     
     private HBox inBox(String in, List<String> options){
        ComboBox CB = new ComboBox();
-       for(String x : options){ 
-       CB.getItems().add(x);
-       }
+       
+       
+       options.forEach((x) -> {
+           CB.getItems().add(x);       
+       }); //this is ->
+       /*for(String x : options){
+         CB.getItems().add(x);
+         }*/
+       
+       
         //creates an Hbox with a textbox to input data and a label to represent what should be written in the box
         String input = in;
         HBox line = new HBox();
+        line.setPadding(new Insets(5, 5, 5, 5));
         //the label at the start of the line
         Label label = new Label(in + ": ");
+        label.setMinWidth(100);
         //the texfield to go after the label
         //setting the prompt text in the text field 
         CB.setPromptText("Input " + in);
         CB.setId(in);
+        CB.setMinWidth(200);
         line.getChildren().addAll(label, CB);
         inputfield.add(CB);
         return line;
@@ -178,7 +194,6 @@ List<String> roomtypes = new ArrayList();
                 x = (TextField)data;
                 
                 if(what.equals(x.getId())){
-                System.out.println(x.getText());
                 return x.getText();
                 
             }
@@ -186,7 +201,6 @@ List<String> roomtypes = new ArrayList();
             }catch(ClassCastException e){
                 y = (ComboBox<String>)data;               
                 if(what.equals(y.getId())){
-                 System.out.println(y.getValue());
                 return (String)y.getValue();
                 
             }
@@ -227,7 +241,9 @@ List<String> roomtypes = new ArrayList();
         custs.getColumns().addAll(ID, name, address, number, email, Rn, occ);
         custs.setItems(customers);
         custs.setOnMouseClicked(e -> {
-        Checkout(custs, bookT, hoTable);
+            Customer larry = (Customer)custs.getSelectionModel().getSelectedItem();
+            
+            Checkout(customers, bookings, rooms, larry);
         
         });
         return custs;
@@ -323,9 +339,29 @@ List<String> roomtypes = new ArrayList();
         
     }
     
-    private void Checkout(TableView custs, TableView book, TableView rooms){
-        Customer larry = (Customer) custs.getSelectionModel().getSelectedItem();
-        larry.getRoomnumber();
+    private void Checkout(ObservableList<Customer> customers, ObservableList<Booking> bookings, ObservableList<Room> rooms, Customer larry){
+        //Booking todel = null;
+        //Room toclean = null;
+        int idToGo = larry.getID();
+        
+        for(int i = 0; i < rooms.size(); i++){
+            if(rooms.get(i).getCustomerid() == larry.getID()){
+                rooms.get(i).CheckOut();
+            }
+        }    
+        
+        for(int i = 0; i < bookings.size(); i++){
+            if(bookings.get(i).getCustomerID() == larry.getID()){
+                bookings.remove(bookings.get(i));
+            }   
+        }
+        
+        customers.remove(larry);
+        
+        hoTable.refresh();
+        bookT.refresh();
+        custs.refresh();
+        
         
     }
 }

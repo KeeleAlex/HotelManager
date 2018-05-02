@@ -22,30 +22,17 @@ public class Booking {
         room = null;
         customer = cust;
         roomType = type;
-        try {
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
-        }
+        
         for(int i = 0; i < hotel.size(); i++) {
             Room r = hotel.get(i);
             //checking whether a room is already booked 
             if(r.getCheckedIn() == false) {
-                //System.out.println("Checked in: " + r.getCheckedIn());
                 if(roomType.equals(r.getType())) {
-                    //System.out.println("occ: " + occ);
                     room = r;
                     r.CheckIn(customer.getID());
                     cust.setRoomnumber(r.getRoomid());
                     occupants = cust.getOccupants();
-                    break;
-                    //System.out.println("room id: " + roomID);
-                    
-                    
-                }else{
-                    
-                   r.setCheckedIn(false);
-                   r.setCustomerID(-1);
-                    
+                    break; 
                 }
             }
         }

@@ -107,9 +107,15 @@ public class Room {
         this.price = in;
     }
     
+    //checking in module 
     public void CheckIn(int cust) {
         this.customerID = cust;
         this.checkedIn = true;
+    }
+    
+    public void CheckOut(){
+        this.customerID = -1;
+        this.checkedIn = false;
     }
     
     

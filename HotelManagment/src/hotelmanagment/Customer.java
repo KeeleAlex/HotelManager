@@ -97,7 +97,6 @@ public class Customer {
     
     public void setType(String type){
         this.roomType = type;
-        System.out.println(type + " " + this.getTypeCapacity());
         this.occupants = this.getTypeCapacity();
         
     }
